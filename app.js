@@ -7,7 +7,7 @@ const logger = require("morgan");
 const { sequelize } = require("./models/index");
 
 (async () => {
-  await sequelize.sync({ force: true });
+  await sequelize.sync();
   try {
     await sequelize.authenticate();
     console.log("Connection to the database successful!");
