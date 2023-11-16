@@ -3,9 +3,9 @@ const express = require("express");
 const path = require("path");
 const cookieParser = require("cookie-parser");
 const logger = require("morgan");
-
 const { sequelize } = require("./models/index");
 
+// test connection to the database & sync the model
 (async () => {
   await sequelize.sync();
   try {

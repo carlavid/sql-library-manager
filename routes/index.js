@@ -14,14 +14,31 @@ function asyncHandler(cb) {
   };
 }
 
-/* GET home page/books listing. */
+/* GET home page */
+router.get("/", (req, res, next) => {
+  res.redirect("/books");
+});
+
+/* GET full list of books */
 router.get(
-  "/",
+  "/books",
   asyncHandler(async (req, res) => {
-    const books = await Book.findAll({ order: [["year", "DESC"]] });
-    console.log(books);
-    res.json([books]);
+    const books = await Book.findAll();
+    res.render("layout", { books, title: "Books" });
   })
 );
+
+/* GET create new book form */
+router.get(
+  "/new",
+  asyncHandler(async (req, res) => {
+    res.render("new-book", { book: {}, title: "New Book" });
+  })
+);
+
+/* POST a new book to the database */
+/* GET book detail form */
+/* POST updated book info in the database */
+/* POST - deletes a book */
 
 module.exports = router;
