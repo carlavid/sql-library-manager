@@ -24,7 +24,7 @@ router.get(
   "/books",
   asyncHandler(async (req, res) => {
     const books = await Book.findAll();
-    res.render("layout", { books, title: "Books" });
+    res.render("index", { books, title: "Books" });
   })
 );
 
@@ -40,7 +40,7 @@ router.post(
     let book;
     try {
       book = await Book.create(req.body);
-      res.redirect("/books/" + book.id);
+      res.redirect("/books");
     } catch (error) {
       if (error.name === "SequelizeValidationError") {
         // checking the error
