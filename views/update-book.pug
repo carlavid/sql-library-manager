@@ -1,8 +1,10 @@
 extends layout.pug
 
 block content
-  h1 Update Book 
-  form(action=`/books/${book.id}`, method="post")
+  h1= title 
+
+  include form-errors
+  form(method="post" action=`/books/${book.id}`)
     p 
       label(for="title") Title
       input(name="title" type="text" id="title" value=book.title)
