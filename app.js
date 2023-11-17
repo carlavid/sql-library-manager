@@ -36,21 +36,21 @@ app.use("/", indexRouter);
 
 // catch 404 and forward to error handler
 app.use((req, res, next) => {
-  const err = createError(404);
+  const err = createError();
+  err.status = 404;
   err.message = "Sorry! We couldn't find the page you were looking for.";
-  res.render("page-not-found", { err });
+  res.status(404).render("page-not-found", { err });
   next(err);
 });
 
 // Global error handler
 app.use((err, req, res, next) => {
-  if (err.status != 404) {
-    const err = createError(500);
+  if (err.status !== 404) {
+    err.status = 500;
     err.message = "Sorry! There was an unexpected error on the server.";
     res.render("error", { err });
   }
-  console.log(err.status);
-  console.log(err.message);
+  console.error(`Error ${err.status}: ${err.message}`);
 });
 
 module.exports = app;
