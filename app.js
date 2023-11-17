@@ -36,18 +36,28 @@ app.use("/", indexRouter);
 
 // catch 404 and forward to error handler
 app.use((req, res, next) => {
-  next(createError(404));
+  const err = createError(404);
+  err.message = "Sorry! We couldn't find the page you were looking for.";
+  res.render("page-not-found", { err });
+  next(err);
 });
 
 // error handler
 app.use((err, req, res, next) => {
   // set locals, only providing error in development
-  res.locals.message = err.message;
-  res.locals.error = req.app.get("env") === "development" ? err : {};
-
+  // res.locals.message = err.message;
+  // res.locals.error = req.app.get("env") === "development" ? err : {};
+  // if (err.status === 404) {
+  //   res.render("page-not-found", { err });
+  // } else {
   // render the error page
-  res.status(err.status || 500);
-  res.render("error");
+  if (err.status != 404) {
+    res.status(500);
+    err.message = "Sorry! There was an unexpected error on the server.";
+    res.render("error", { err });
+  }
+  console.log(err.status);
+  console.log(err.message);
 });
 
 module.exports = app;

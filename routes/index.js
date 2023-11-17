@@ -25,9 +25,6 @@ router.get(
   asyncHandler(async (req, res) => {
     const books = await Book.findAll();
     res.render("index", { books, title: "Books" });
-    books.forEach((book) => {
-      console.log(book.id);
-    });
   })
 );
 
@@ -67,6 +64,8 @@ router.get(
     const book = await Book.findByPk(req.params.id);
     if (book) {
       res.render("update-book", { book, title: "Update Book" });
+    } else {
+      throw error;
     }
   })
 );
