@@ -42,17 +42,10 @@ app.use((req, res, next) => {
   next(err);
 });
 
-// error handler
+// Global error handler
 app.use((err, req, res, next) => {
-  // set locals, only providing error in development
-  // res.locals.message = err.message;
-  // res.locals.error = req.app.get("env") === "development" ? err : {};
-  // if (err.status === 404) {
-  //   res.render("page-not-found", { err });
-  // } else {
-  // render the error page
   if (err.status != 404) {
-    res.status(500);
+    const err = createError(500);
     err.message = "Sorry! There was an unexpected error on the server.";
     res.render("error", { err });
   }
