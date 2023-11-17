@@ -7,7 +7,7 @@ html
   block content
     h1 Books
     p
-      a.button(href='new') Create New Book
+      a.button(href='/books/new') Create New Book
     table
       thead
         tr
@@ -20,7 +20,7 @@ html
           book
           tr
             td
-              a(href="book_detail.html")= book.title
+              a(href=`/books/${book.id}`)= book.title
             td= book.author 
             td= book.genre 
             td= book.year
