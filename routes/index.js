@@ -25,6 +25,9 @@ router.get(
   asyncHandler(async (req, res) => {
     const books = await Book.findAll();
     res.render("index", { books, title: "Books" });
+    books.forEach((book) => {
+      console.log(book.id);
+    });
   })
 );
 
